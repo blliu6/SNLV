@@ -20,7 +20,7 @@ class SOSValidator:
         self.f = example.f
         self.V = V
         self.lie = self.get_Lyapunov()
-
+        self.degree = config.DEG
         self.var_count = 0
 
     def solve(self):
@@ -46,16 +46,16 @@ class SOSValidator:
             return False
             # loger.error("solve failed.")
 
-    def construct_constraints(self, constr_type, deg=2):
+    def construct_constraints(self, constr_type):
 
         if constr_type == Constant.SUBSET_CONSTR:
-            return self._construct_subset_constraint(deg)
+            return self._construct_subset_constraint(self.degree[0])
 
         if constr_type == Constant.LL_CONSTR:
-            return self._construct_LL_constraint(deg)
+            return self._construct_LL_constraint(self.degree[1])
 
         if constr_type == Constant.NONEMPTY_CONSTR:
-            return self._construct_nonempty_constraint()
+            return self._construct_nonempty_constraint(self.degree[2])
 
     def _construct_subset_constraint(self, deg=2):
         expr = []
@@ -81,7 +81,7 @@ class SOSValidator:
         return [-expr(*self.center)]
 
     def get_Lyapunov(self):
-        diff = np.array([sp.diff(self.V, self.x[i]) for i in range(len(self.n))])
+        diff = np.array([sp.diff(self.V, self.x[i]) for i in range(self.n)])
         f = np.array(self.f[i](x, self.u[i]) for i in range(self.n))
         lie = diff.T @ f
 
