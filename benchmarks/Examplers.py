@@ -29,8 +29,8 @@ examples = {
         n=2,
         local=Zone(shape='box', low=[-2, -2], up=[2, 2]),
         target=Zone(shape='ball', center=[0, 0], r=1),
-        f=[lambda x, u: x[1],
-           lambda x, u: x[0] - 0.25 * x[0] ** 2],
+        f=[lambda x, u: x[1] + u[0],
+           lambda x, u: x[0] - 0.25 * x[0] ** 2 + u[0]],
         name='test'
     )
 }
