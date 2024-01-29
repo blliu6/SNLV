@@ -48,7 +48,8 @@ class Learner:
             ###########
 
             loss = loss_1 + loss_2 + loss_3
-            # print(loss_1, loss_2, loss_3)
+            # loss = loss_1 + loss_3
+            # loss = loss_1
             result = True
 
             for e in accuracy:

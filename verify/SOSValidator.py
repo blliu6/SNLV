@@ -26,7 +26,8 @@ class SOSValidator:
     def solve(self):
         # \theta_i * s_i + V
         ans = True
-        ans &= self.verify(self.construct_constraints(Constant.SUBSET_CONSTR), Constant.SUBSET_CONSTR)
+        for i in range(len(self.target)):
+            ans &= self.verify(self.construct_constraints(Constant.SUBSET_CONSTR, i), Constant.SUBSET_CONSTR)
         # -Lie - V - \sum {\phi_j * h_j}
         ans &= self.verify(self.construct_constraints(Constant.LL_CONSTR), Constant.LL_CONSTR)
         # -V(x_0)
@@ -46,10 +47,10 @@ class SOSValidator:
             return False
             # loger.error("solve failed.")
 
-    def construct_constraints(self, constr_type):
+    def construct_constraints(self, constr_type, i=0):
 
         if constr_type == Constant.SUBSET_CONSTR:
-            return self._construct_subset_constraint(self.degree[0])
+            return self._construct_subset_constraint(i, self.degree[0])
 
         if constr_type == Constant.LL_CONSTR:
             return self._construct_LL_constraint(self.degree[1])
@@ -57,24 +58,28 @@ class SOSValidator:
         if constr_type == Constant.NONEMPTY_CONSTR:
             return self._construct_nonempty_constraint(self.degree[2])
 
-    def _construct_subset_constraint(self, deg=2):
-        expr = list(self.local[:])
-
-        for i in range(len(self.target)):  # for target上整个半代数集.
+    def _construct_subset_constraint(self, i, deg=2):
+        expr = []
+        # 将点限制在location内部, 也需要乘子.
+        for i in range(len(self.local)):
             P, _, _ = self.polynomial(deg)
-            expr.append(P)  # 需要保证乘子本身是SOS的
-            expr.append(self.target[i] * P + self.V)  # \theta_i * s_i + V
+            expr.append(P * self.local[i])
+
+        # target补集的第i部分约束.
+        P, _, _ = self.polynomial(deg)
+        expr.append(P)  # 需要保证乘子本身是SOS的
+        expr.append(self.target[i] * P + self.V)  # \theta_i * s_i + V
+
         return expr
 
     def _construct_LL_constraint(self, deg=2):
-        expr = []
+        expr = [0]
         t = 0
         for i in range(len(self.local)):
             P, _, _ = self.polynomial(deg)
             expr.append(P)
             t += P * self.local[i]
-        expr.append(-self.lie - self.V - t)
-
+        expr[0] = -self.lie - self.V - t
         return expr
 
     def _construct_nonempty_constraint(self, deg=2):

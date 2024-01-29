@@ -22,7 +22,7 @@ def main():
         'lr': 0.001,
         'LOSS_WEIGHT': (1, 1, 1),
         'margin': 1e-2,
-        "DEG": [2, 2, 2],
+        "DEG": [0, 0, 2],
         "LEARNING_LOOPS": 100,
         'max_iter': 10
     }
