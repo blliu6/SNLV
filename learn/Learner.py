@@ -49,7 +49,7 @@ class Learner:
 
             loss = loss_1 + loss_2 + loss_3
             # loss = loss_1 + loss_3
-            # loss = loss_1
+            # loss = loss_2
             result = True
 
             for e in accuracy:

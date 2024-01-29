@@ -79,7 +79,7 @@ class SOSValidator:
             P, _, _ = self.polynomial(deg)
             expr.append(P)
             t += P * self.local[i]
-        expr[0] = -self.lie - self.V - t
+        expr[0] = sp.expand(-self.lie - self.V - t)
         return expr
 
     def _construct_nonempty_constraint(self, deg=2):
