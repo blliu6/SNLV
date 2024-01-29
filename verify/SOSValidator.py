@@ -3,12 +3,13 @@ from utils import Config
 import logging as loger
 import sympy as sp
 from benchmarks.Examplers import Example
-
+from utils.Convert import *
 
 class SOSValidator:
     def __init__(self, example: Example):
         self.x = sp.symbols(['x{}'.format(i + 1) for i in range(example.n)])
-
+        self.local = example.local
+        self.target = example.target
     def verify(self, expr):
         prob = SOSProblem()
         for e in expr:

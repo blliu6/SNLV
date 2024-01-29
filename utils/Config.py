@@ -14,10 +14,6 @@ class Config:
     R_b = 0.4
     LEARNING_LOOPS = 100
 
-    SOLVER_TYPE = "mosek"
-    SUBSET_CONSTR = "subset constraint"
-    LL_CONSTR = "Lie-like constraint"
-    NONEMPTY_CONSTR = "non empty"
 
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
