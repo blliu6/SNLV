@@ -19,10 +19,10 @@ def main():
         'N_HIDDEN_NEURONS': hidden_neurons,
         "EXAMPLE": example,
         "batch_size": 500,
-        'lr': 0.1,
+        'lr': 0.01,
         'LOSS_WEIGHT': (1, 1, 1),
         'margin': 1,
-        "DEG": [2, 2, 2],
+        "DEG": [0, 0, 0],
         "LEARNING_LOOPS": 100,
         'max_iter': 10
     }

@@ -28,9 +28,9 @@ class SOSValidator:
         ans = True
         ans &= self.verify(self.construct_constraints(Constant.SUBSET_CONSTR), Constant.SUBSET_CONSTR)
         # -Lie - V - \sum {\phi_j * h_j}
-        ans &= self.verify(self.construct_constraints(Constant.LL_CONSTR), Constant.SUBSET_CONSTR)
+        ans &= self.verify(self.construct_constraints(Constant.LL_CONSTR), Constant.LL_CONSTR)
         # -V(x_0)
-        ans &= self.verify(self.construct_constraints(Constant.NONEMPTY_CONSTR), Constant.SUBSET_CONSTR)
+        ans &= self.verify(self.construct_constraints(Constant.NONEMPTY_CONSTR), Constant.NONEMPTY_CONSTR)
 
         return ans
 
@@ -42,7 +42,7 @@ class SOSValidator:
             prob.solve(solver=Constant.SOLVER_TYPE)
             return True
         except:
-            loger.info(f"{name} verify failed!")
+            print(f"{name} verify failed!")
             return False
             # loger.error("solve failed.")
 
@@ -76,15 +76,13 @@ class SOSValidator:
 
         return expr
 
-    def _construct_nonempty_constraint(self):
+    def _construct_nonempty_constraint(self, deg=2):
         expr = sp.lambdify(self.x, self.V)
         return [-expr(*self.center)]
 
     def get_Lyapunov(self):
-        diff = np.array([sp.diff(self.V, self.x[i]) for i in range(self.n)])
-        f = np.array(self.f[i](x, self.u[i]) for i in range(self.n))
-        lie = diff.T @ f
-
+        # TODO 控制器u的写太死,之后需要修改.
+        lie = sum(sp.diff(self.V, self.x[i]) * self.f[i](self.x, self.u) for i in range(self.n))
         return lie
 
     def polynomial(self, deg=2):  # Generating polynomials of degree n-ary deg.

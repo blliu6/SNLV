@@ -6,15 +6,13 @@ import numpy as np
 
 def zone_to_constraints(zone: Zone, x):
     if zone.shape == Constant.BOX:
-        # up - x; low + x
+        # (up - x)(x - low) >= 0
         n = len(zone.low)
-        constr = []
-        for i in range(n):
-            constr.extend([zone.low[i] + x[i], zone.up[i] - x[i]])
+        constr = [(up - x[i]) * (x[i] - low) for i, (low, up) in enumerate(zip(zone.low, zone.up))]
         return np.array(constr)
 
     if zone.shape == Constant.BALL:
-        # r - \sum (x_i - center_i)**2
+        # r - \sum (x_i - center_i)**2 >= 0
         return np.array([zone.r - sum((x[i] - zone.center[i]) ** 2 for i in range(len(zone.center)))])
 
 
