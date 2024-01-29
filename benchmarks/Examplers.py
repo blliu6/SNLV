@@ -1,5 +1,5 @@
 import numpy as np
-
+from constants import *
 
 class Zone:
     def __init__(self, shape: str, low=None, up=None, center=None, r=None):
@@ -33,13 +33,19 @@ examples = {
            lambda x, u: x[0] - 0.25 * x[0] ** 2 + u[0]],
         name='test'
     ),
-2: Example(
+    2: Example(
         n=2,
         local=Zone(shape='box', low=[-2, -2], up=[2, 2]),
         target=Zone(shape='box', low=[-1, -1], up=[1, 1]),
         f=[lambda x, u: x[1] + u[0],
            lambda x, u: x[0] - 0.25 * x[0] ** 2 + u[0]],
         name='test1'
+    ),
+    3: Example(
+        n=2,
+        local=Zone(shape=Constant.BOX, low=[-2, -2], up=[2, 2]),
+        target=Zone(shape=Constant.BOX, low=[-0.05] * 2, up=[0.05] * 2),
+        name='Oscillator'
     )
 }
 

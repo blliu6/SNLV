@@ -25,20 +25,26 @@ class SOSValidator:
 
     def solve(self):
         # \theta_i * s_i + V
-        self.verify(self.construct_constraints(Constant.SUBSET_CONSTR))
+        ans = True
+        ans &= self.verify(self.construct_constraints(Constant.SUBSET_CONSTR), Constant.SUBSET_CONSTR)
         # -Lie - V - \sum {\phi_j * h_j}
-        self.verify(self.construct_constraints(Constant.LL_CONSTR))
+        ans &= self.verify(self.construct_constraints(Constant.LL_CONSTR), Constant.SUBSET_CONSTR)
         # -V(x_0)
-        self.verify(self.construct_constraints(Constant.NONEMPTY_CONSTR))
+        ans &= self.verify(self.construct_constraints(Constant.NONEMPTY_CONSTR), Constant.SUBSET_CONSTR)
 
-    def verify(self, expr):
+        return ans
+
+    def verify(self, expr, name):
         prob = SOSProblem()
         for e in expr:
             prob.add_sos_constraint(e, self.x)
         try:
             prob.solve(solver=Constant.SOLVER_TYPE)
+            return True
         except:
-            loger.error("solve failed.")
+            loger.info(f"{name} verify failed!")
+            return False
+            # loger.error("solve failed.")
 
     def construct_constraints(self, constr_type, deg=2):
 
