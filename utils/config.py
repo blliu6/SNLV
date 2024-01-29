@@ -1,7 +1,7 @@
 import torch
 
 
-class CegisConfig():
+class Config:
     N_HIDDEN_NEURONS = [10]
     EXAMPLE = None
     ACTIVATION = ['SQUARE']
