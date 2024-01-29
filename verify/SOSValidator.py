@@ -58,7 +58,7 @@ class SOSValidator:
             return self._construct_nonempty_constraint(self.degree[2])
 
     def _construct_subset_constraint(self, deg=2):
-        expr = self.local[:]
+        expr = list(self.local[:])
 
         for i in range(len(self.target)):  # for target上整个半代数集.
             P, _, _ = self.polynomial(deg)
