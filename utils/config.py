@@ -20,6 +20,10 @@ class Config:
     LEARNING_LOOPS = 100
     CHOICE = [0, 0, 0]
 
+    SOLVER_TYPE = "mosek"
+    SUBSET_CONSTR = "subset constraint"
+    LL_CONSTR = "Lie-like constraint"
+    NONEMPTY_CONSTR = "non empty"
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
             setattr(self, key, value)
