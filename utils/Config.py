@@ -4,16 +4,20 @@ import torch
 class Config:
     N_HIDDEN_NEURONS = [10]
     EXAMPLE = None
-    ACTIVATION = ['SKIP']
-    batch_size = 500
+    ACTIVATION = ['SQUARE']
+    BATCH_SIZE = 500
     LEARNING_RATE = 0.01
-    loss_weight = (1, 1, 1)
-    SPLIT_D = False
-    margin = 0.5
+    LOSS_WEIGHT = (1, 1, 1)
+    MARGIN = 0.5
     DEG = [2, 2, 2, 2]
     OPT = torch.optim.AdamW
     R_b = 0.4
-    learning_loops = 100
+    LEARNING_LOOPS = 100
+
+    SOLVER_TYPE = "mosek"
+    SUBSET_CONSTR = "subset constraint"
+    LL_CONSTR = "Lie-like constraint"
+    NONEMPTY_CONSTR = "non empty"
 
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
