@@ -22,7 +22,7 @@ class Learner:
             optimizer.zero_grad()
 
             v_t, v_y, v_grad, v_center = self.net(data_tensor)
-            v_t, v_y, v_center = v_t[:, 0], v_y[:0], v_center
+            v_t, v_y, v_center = v_t[:, 0], v_y[:, 0], v_center
 
             weight = self.config.LOSS_WEIGHT
 

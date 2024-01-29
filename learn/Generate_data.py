@@ -1,15 +1,33 @@
 import numpy as np
+import sympy as sp
 import torch
 
 from utils.Config import Config
 from benchmarks.Examplers import Zone, get_example_by_name
 
 
+def x2dotx(n, X, f, u):
+    f_x = []
+    x_ = sp.symbols([f'x{i + 1}' for i in range(n)])
+    f_u = [sp.lambdify(x_, u[i]) for i in range(len(u))]
+    res_u = []
+    for x in X:
+        ans = []
+        for fun in f_u:
+            ans.append(fun(*x))
+        res_u.append(np.array(ans))
+    res_u = np.array(res_u)
+
+    for a, b in zip(X, res_u):
+        f_x.append([f[i](a, b) for i in range(n)])
+    return np.array(f_x)
+
+
 class Data:
     def __init__(self, config: Config):
         self.config = config
         self.ex = config.EXAMPLE
-        self.n = self.ex.n
+        self.n = config.EXAMPLE.n
         self.batch_size = self.config.BATCH_SIZE
 
     def get_data(self, zone: Zone, batch_size):
@@ -73,20 +91,14 @@ class Data:
         # self.draw(data)
         return data
 
-    def x2dotx(self, X, f):
-        f_x = []
-        for x in X:
-            f_x.append([f[i](x) for i in range(self.n)])
-        return np.array(f_x)
-
     def generate_data(self):
         batch_size = self.config.BATCH_SIZE
         target = self.ex.target
         target_data = self.complement_of_target()
         l = self.get_data(self.ex.local, batch_size)
-        l1_dot = self.x2dotx(l, self.ex.f)
+        l1_dot = x2dotx(self.n, l, self.ex.f, self.config.controller)
         center = np.array([target.center] * batch_size)
-        return target_data, l, l1_dot, center
+        return torch.Tensor(target_data), torch.Tensor(l), torch.Tensor(l1_dot), torch.Tensor(center)
 
 
 if __name__ == '__main__':

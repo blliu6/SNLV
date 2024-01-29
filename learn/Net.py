@@ -37,7 +37,7 @@ class Net(nn.Module):
 
         layer1 = nn.Linear(n_prev, 1, bias=False)
         self.register_parameter(f'v1_w1_{k}', layer1.weight)
-        self.b1_lay1.append(layer1)
+        self.v_lay1.append(layer1)
         #############################################################
 
     def forward(self, data):
