@@ -18,10 +18,10 @@ def main():
         'ACTIVATION': activations,
         'N_HIDDEN_NEURONS': hidden_neurons,
         "EXAMPLE": example,
-        "BATCH_SIZE": 1,
+        "BATCH_SIZE": 500,
         'LEARNING_RATE': 0.001,
         'LOSS_WEIGHT': (1, 1, 1),
-        'margin': 0.01,
+        'margin': 0.1,
         "DEG": [2, 2, 2],
         "LEARNING_LOOPS": 100,
         'max_iter': 10
