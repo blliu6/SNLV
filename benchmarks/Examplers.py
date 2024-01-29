@@ -44,7 +44,7 @@ examples = {
     3: Example(
         n=2,
         local=Zone(shape=Constant.BOX, low=[-2, -2], up=[2, 2]),
-        target=Zone(shape=Constant.BOX, low=[-0.05] * 2, up=[0.05] * 2),
+        target=Zone(shape=Constant.BOX, low=[-0.5] * 2, up=[0.5] * 2),
         f=[lambda x, u: x[1],
            lambda x, u: (1 - x[0]**2) * x[1] - x[0] + u[0]],
         name='Oscillator'

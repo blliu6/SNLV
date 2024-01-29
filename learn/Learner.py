@@ -37,15 +37,18 @@ class Learner:
             ###########
             # loss 2
             p = v_grad + v_y
-            accuracy[1] = sum(p > margin / 2).item() * 100 / len(v_y)
+            accuracy[1] = sum(p < -margin / 2).item() * 100 / len(v_y)
 
             loss_2 = weight[1] * (torch.relu(p + margin) - slope * relu6(-p - margin)).mean()
             ###########
             # loss 3
             p = v_center
-            loss3 = weight[2] * (torch.relu(p + margin) - slope * relu6(-p - margin)).mean()
+            accuracy[2] = sum(p < -margin / 2).item() * 100 / len(v_center)
+            loss_3 = weight[2] * (torch.relu(p + margin) - slope * relu6(-p - margin)).mean()
             ###########
-            loss = loss_1 + loss_2 + loss3
+
+            loss = loss_1 + loss_2 + loss_3
+            # print(loss_1, loss_2, loss_3)
             result = True
 
             for e in accuracy:

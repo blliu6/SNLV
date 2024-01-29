@@ -88,7 +88,7 @@ class Data:
             enhance_data = enhance_data + target.center
         domain = np.array(domain)
         data = np.concatenate((domain, enhance_data), axis=0)
-        # self.draw(data)
+        self.draw(data)
         return data
 
     def generate_data(self):

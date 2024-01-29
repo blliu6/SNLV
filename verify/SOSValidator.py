@@ -78,6 +78,7 @@ class SOSValidator:
 
     def _construct_nonempty_constraint(self, deg=2):
         expr = sp.lambdify(self.x, self.V)
+        print(-expr(*self.center))
         return [-expr(*self.center)]
 
     def get_Lyapunov(self):
