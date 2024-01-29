@@ -48,6 +48,14 @@ examples = {
         f=[lambda x, u: x[1],
            lambda x, u: (1 - x[0]**2) * x[1] - x[0] + u[0]],
         name='Oscillator'
+    ),
+    4: Example(
+        n=2,
+        local=Zone(shape=Constant.BOX, low=[-6, -7*np.pi], up=[6, 7*np.pi/10]),
+        target=Zone(shape=Constant.BALL, center=[0, 0], r=1**2),
+        f=[lambda x, u: x[1]-x[1]**3/6+x[1]**5/120,
+           lambda x, u: -u[0]],
+        name='Car'
     )
 }
 
