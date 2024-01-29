@@ -11,7 +11,6 @@ class Config:
     MARGIN = 0.5
     DEG = [2, 2, 2, 2]
     OPT = torch.optim.AdamW
-    R_b = 0.4
     LEARNING_LOOPS = 100
 
 

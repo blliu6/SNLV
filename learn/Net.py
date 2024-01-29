@@ -41,12 +41,13 @@ class Net(nn.Module):
         #############################################################
 
     def forward(self, data):
-        T, l, l1_dot = data
+        T, l, l1_dot, center = data
         v_t = self.net_out(T, self.config.ACTIVATION, self.v_lay1, self.v_lay2)
         v_y = self.net_out(l, self.config.ACTIVATION, self.v_lay1, self.v_lay2)
         v_grad = self.get_gradient(l, l1_dot, self.config.ACTIVATION, self.v_lay1, self.v_lay2)
+        v_center = self.net_out(center, self.config.ACTIVATION, self.v_lay1, self.v_lay2)
 
-        return v_t, v_y, v_grad
+        return v_t, v_y, v_grad, v_center
 
     def net_out(self, x, act, lay1, lay2):
         y = x
