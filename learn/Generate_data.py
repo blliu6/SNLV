@@ -92,7 +92,8 @@ class Data:
         return data
 
     def generate_data(self):
-        batch_size = self.config.BATCH_SIZE
+        batch_size = self.batch_size
+        print(batch_size)
         target = self.ex.target
         target_data = self.complement_of_target()
         l = self.get_data(self.ex.local, batch_size)
