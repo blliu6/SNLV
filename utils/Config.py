@@ -19,5 +19,4 @@ class Config:
 
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
-            print(key, value)
             setattr(self, key, value)
