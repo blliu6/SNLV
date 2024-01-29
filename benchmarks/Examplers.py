@@ -32,6 +32,14 @@ examples = {
         f=[lambda x, u: x[1] + u[0],
            lambda x, u: x[0] - 0.25 * x[0] ** 2 + u[0]],
         name='test'
+    ),
+2: Example(
+        n=2,
+        local=Zone(shape='box', low=[-2, -2], up=[2, 2]),
+        target=Zone(shape='box', low=[-1, -1], up=[1, 1]),
+        f=[lambda x, u: x[1] + u[0],
+           lambda x, u: x[0] - 0.25 * x[0] ** 2 + u[0]],
+        name='test1'
     )
 }
 

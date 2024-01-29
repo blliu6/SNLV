@@ -1,4 +1,5 @@
 import torch
+import sympy as sp
 
 
 class Config:
@@ -12,7 +13,7 @@ class Config:
     DEG = [2, 2, 2, 2]
     OPT = torch.optim.AdamW
     LEARNING_LOOPS = 100
-
+    controller = sp.sympify('x1+x2')
 
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
