@@ -62,7 +62,7 @@ class SOSValidator:
         for i in range(len(self.target)):  # for target上整个半代数集.
             P, _, _ = self.polynomial(deg)
             expr.append(P)  # 需要保证乘子本身是SOS的
-            expr.append(self.local[i] * P + self.V)  # \theta_i * s_i + V
+            expr.append(self.target[i] * P + self.V)  # \theta_i * s_i + V
         return expr
 
     def _construct_LL_constraint(self, deg=2):
