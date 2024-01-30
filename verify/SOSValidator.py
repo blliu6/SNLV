@@ -61,14 +61,17 @@ class SOSValidator:
     def _construct_subset_constraint(self, i, deg=2):
         expr = []
         # 将点限制在location内部, 也需要乘子.
+        t = 0
         for j in range(len(self.local)):
             P, _, _ = self.polynomial(deg)
-            expr.append(P * self.local[j])
+            expr.append(P)
+            t += P * self.local[j]
 
         # target补集的第i部分约束.
         P, _, _ = self.polynomial(deg)
         expr.append(P)  # 需要保证乘子本身是SOS的
-        expr.append(self.target[i] * P + self.V)  # \theta_i * s_i + V
+        expr.append(self.target[i] * P + self.V - t)  # \theta_i * s_i + V - \sum P_j * local_j
+
         return expr
 
     def _construct_LL_constraint(self, deg=2):
