@@ -18,13 +18,13 @@ def main():
         'ACTIVATION': activations,
         'N_HIDDEN_NEURONS': hidden_neurons,
         "EXAMPLE": example,
-        "BATCH_SIZE": 500,
-        'LEARNING_RATE': 0.001,
+        "BATCH_SIZE": 1000,
+        'LEARNING_RATE': 0.1,
         'LOSS_WEIGHT': (1, 1, 1),
-        'MARGIN': 0.1,
+        'MARGIN': 1,
         "DEG": [2, 2, 2],
         "LEARNING_LOOPS": 100,
-        'max_iter': 10
+        'max_iter': 20
     }
     config = Config(**opts)
     cegis = Cegis(config)

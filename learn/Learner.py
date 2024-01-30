@@ -22,7 +22,9 @@ class Learner:
             optimizer.zero_grad()
 
             v_t, v_y, v_grad, v_center = self.net(data_tensor)
-            v_t, v_y, v_center = v_t[:, 0], v_y[:, 0], v_center
+            # print(v_center.shape)
+            v_t, v_y, v_center = v_t[:, 0], v_y[:, 0], v_center[:, 0]
+            # print(v_center.shape)
 
             weight = self.config.LOSS_WEIGHT
 
@@ -30,6 +32,7 @@ class Learner:
             ###########
             # loss 1
             p = v_t
+            # print(p.shape)
             accuracy[0] = sum(p > margin / 2).item() * 100 / len(v_t)
 
             loss_1 = weight[0] * (torch.relu(-p + margin) - slope * relu6(p - margin)).mean()
@@ -37,6 +40,9 @@ class Learner:
             ###########
             # loss 2
             p = v_grad + v_y
+            # print(p.shape)
+            # import os
+            # os.system('pause')
             accuracy[1] = sum(p < -margin / 2).item() * 100 / len(v_y)
 
             loss_2 = weight[1] * (torch.relu(p + margin) - slope * relu6(-p - margin)).mean()

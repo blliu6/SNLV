@@ -36,7 +36,7 @@ examples = {
     2: Example(
         n=2,
         local=Zone(shape='box', low=[-2, -2], up=[2, 2]),
-        target=Zone(shape='box', low=[-1, -1], up=[1, 1]),
+        target=Zone(shape='box', low=[-1.5, -1.5], up=[1.5, 1.5]),
         f=[lambda x, u: x[1] + u[0],
            lambda x, u: x[0] - 0.25 * x[0] ** 2 + u[0]],
         name='test1'
@@ -44,7 +44,7 @@ examples = {
     3: Example(
         n=2,
         local=Zone(shape=Constant.BOX, low=[-2, -2], up=[2, 2]),
-        target=Zone(shape=Constant.BOX, low=[-0.5] * 2, up=[0.5] * 2),
+        target=Zone(shape=Constant.BOX, low=[-0.05] * 2, up=[0.05] * 2),
         f=[lambda x, u: x[1],
            lambda x, u: (1 - x[0]**2) * x[1] - x[0] + u[0]],
         name='Oscillator'

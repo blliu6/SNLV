@@ -87,7 +87,7 @@ class Data:
             enhance_data = np.array([e / np.sqrt(sum(e ** 2)) * np.sqrt(target.r) for e in enhance_data])
             enhance_data = enhance_data + target.center
         domain = np.array(domain)
-        data = np.concatenate((domain, enhance_data), axis=0)
+        data = np.concatenate((domain[:3 * self.batch_size // 4], enhance_data[:self.batch_size // 4]), axis=0)
         self.draw(data)
         return data
 
